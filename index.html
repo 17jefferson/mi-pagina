@@ -80,6 +80,10 @@
     }
     .nav-cta:hover { transform:translateY(-2px) scale(1.04) !important; box-shadow:0 0 28px var(--accent-glow) !important; background:#00ffc0 !important; }
 
+
+
+
+
     /* === HERO === */
     .hero {
       min-height:100vh; display:flex; align-items:center; justify-content:center;
@@ -558,7 +562,7 @@
 <nav id="navbar">
   <a href="#" class="logo">
     <div class="logo-icon">A</div>
-    A&amp;<span>A</span>
+<span style="color:#00FF00; font-weight:bold;">A&amp;A</span>
   </a>
   <ul class="nav-links">
     <li><a href="#simulador">Préstamos</a></li>
@@ -940,7 +944,7 @@
 </button>
 
 <script>
-  const WHATSAPP_NUMBER = '573001234567'; // ← Cambia aquí tu número
+  const WHATSAPP_NUMBER = '573052131345'; // ← Cambia aquí tu número
 
   // Tasas por plazo
   const TASAS_PLAZO = { 1: 0.18, 2: 0.20, 3: 0.23, 4: 0.25 };
@@ -1113,8 +1117,6 @@
     actualizarTasaDisplay(7.5);
     calcularInversion();
   });
-
-
   // Card 3D mouse parallax
   const card = document.querySelector('.credit-card');
   const scene = document.querySelector('.card-scene');
