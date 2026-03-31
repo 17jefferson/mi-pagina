@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A&A — Préstamos Rápidos y Seguros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-deep:      #030610;
+      --bg-card:      #0a1122;
+      --border:       rgba(255,255,255,0.07);
+      --accent:       #00e5a0;
+      --accent2:      #00c4ff;
+      --accent3:      #7c3aed;
+      --accent-glow:  rgba(0,229,160,0.3);
+      --accent2-glow: rgba(0,196,255,0.25);
+      --wa-green:     #25d366;
+      --text-primary: #eef2ff;
+      --text-muted:   #7a8db4;
+      --text-dim:     #3d4f6e;
+      --radius-lg:    20px;
+      --radius-xl:    32px;
+      --font-d:       'Sora', sans-serif;
+      --font-b:       'DM Sans', sans-serif;
+      --ease:         cubic-bezier(0.4,0,0.2,1);
+      --spring:       cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-b); background: var(--bg-deep); color: var(--text-primary); overflow-x: hidden; line-height: 1.65; }
+
+    /* Noise */
+    body::after {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+    /* === NAV === */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 5%;
+      background: rgba(3,6,16,0.7);
+      backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+      border-bottom:1px solid var(--border);
+      transition:background .4s var(--ease);
+    }
+    nav.scrolled { background: rgba(3,6,16,0.97); }
+
+    .logo {
+      font-family:var(--font-d); font-weight:800; font-size:1.45rem;
+      letter-spacing:-0.5px; color:var(--text-primary); text-decoration:none;
+      display:flex; align-items:center; gap:9px;
+    }
+    .logo-icon {
+      width:32px; height:32px; background:var(--accent); border-radius:9px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.85rem; color:#000; font-weight:800;
+    }
+    .logo span { color:var(--accent); }
+
+    .nav-links { display:flex; gap:28px; list-style:none; }
+    .nav-links a { color:var(--text-muted); text-decoration:none; font-size:.88rem; font-weight:500; transition:color .25s; }
+    .nav-links a:hover { color:var(--accent); }
+    .nav-cta {
+      background:var(--accent) !important; color:#000 !important;
+      font-weight:700 !important; padding:10px 22px !important;
+      border-radius:50px; transition:all .3s var(--spring) !important;
+    }
+    .nav-cta:hover { transform:translateY(-2px) scale(1.04) !important; box-shadow:0 0 28px var(--accent-glow) !important; background:#00ffc0 !important; }
+
+
+
+
+
+    /* === HERO === */
+    .hero {
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      padding:120px 5% 80px; position:relative; overflow:hidden;
+    }
+    .hero::before {
+      content:''; position:absolute; inset:0;
+      background-image: linear-gradient(rgba(0,229,160,.04) 1px,transparent 1px), linear-gradient(90deg,rgba(0,229,160,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,black 30%,transparent 100%);
+    }
+
+    .orb { position:absolute; border-radius:50%; filter:blur(90px); pointer-events:none; will-change:transform; }
+    .orb-1 { width:700px;height:700px;opacity:.28; background:radial-gradient(circle,var(--accent) 0%,transparent 65%); top:-250px;left:-200px; animation:orb1 12s ease-in-out infinite; }
+    .orb-2 { width:600px;height:600px;opacity:.22; background:radial-gradient(circle,var(--accent2) 0%,transparent 65%); bottom:-200px;right:-150px; animation:orb2 10s ease-in-out infinite; }
+    .orb-3 { width:350px;height:350px;opacity:.15; background:radial-gradient(circle,var(--accent3) 0%,transparent 65%); top:50%;left:55%; animation:orb3 14s ease-in-out infinite; }
+    @keyframes orb1 { 0%,100%{transform:translate(0,0) scale(1)} 40%{transform:translate(60px,-50px) scale(1.08)} 70%{transform:translate(-30px,30px) scale(.94)} }
+    @keyframes orb2 { 0%,100%{transform:translate(0,0) scale(1)} 35%{transform:translate(-50px,40px) scale(1.06)} 65%{transform:translate(40px,-35px) scale(.96)} }
+    @keyframes orb3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-40px,-50px)} }
+
+    .hero-inner { max-width:1120px;width:100%; display:grid;grid-template-columns:1fr 1fr; gap:70px;align-items:center; position:relative;z-index:1; }
+
+    .hero-badge {
+      display:inline-flex;align-items:center;gap:10px;
+      background:rgba(0,229,160,.08); border:1px solid rgba(0,229,160,.28);
+      border-radius:50px; padding:7px 18px;
+      font-size:.78rem;font-weight:700;color:var(--accent);
+      margin-bottom:26px; letter-spacing:.5px;
+      animation:fadeUp .6s ease both;
+    }
+    .badge-dot { width:7px;height:7px;background:var(--accent);border-radius:50%; animation:pulseDot 2s ease-in-out infinite; }
+    @keyframes pulseDot { 0%,100%{box-shadow:0 0 0 0 rgba(0,229,160,.5)} 50%{box-shadow:0 0 0 5px rgba(0,229,160,0)} }
+
+    .hero-title {
+      font-family:var(--font-d); font-size:clamp(2.5rem,5vw,3.9rem);
+      font-weight:800; line-height:1.07; letter-spacing:-2px; margin-bottom:22px;
+      animation:fadeUp .65s ease .1s both;
+    }
+    .gradient-text { background:linear-gradient(120deg,var(--accent) 0%,var(--accent2) 100%); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+
+    .hero-subtitle { font-size:1.05rem;color:var(--text-muted);max-width:440px;margin-bottom:22px;line-height:1.7; animation:fadeUp .65s ease .2s both; }
+
+    .hours-badge {
+      display:inline-flex;align-items:center;gap:9px;
+      background:rgba(0,196,255,.08);border:1px solid rgba(0,196,255,.25);
+      border-radius:10px;padding:11px 16px;margin-bottom:32px;
+      font-size:.84rem;font-weight:500;color:var(--accent2);
+      animation:fadeUp .65s ease .25s both;
+    }
+    .hours-badge strong { font-weight:700; }
+
+    .hero-buttons { display:flex;gap:14px;flex-wrap:wrap; animation:fadeUp .65s ease .3s both; }
+
+    .btn-primary {
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--accent);color:#000;font-family:var(--font-d);font-weight:700;font-size:.95rem;
+      padding:15px 30px;border-radius:50px;text-decoration:none;border:none;cursor:pointer;
+      transition:all .3s var(--spring);
+    }
+    .btn-primary:hover { transform:translateY(-3px) scale(1.03); box-shadow:0 12px 40px rgba(0,229,160,.5); background:#00ffc0; }
+    .btn-secondary {
+      display:inline-flex;align-items:center;gap:8px;
+      background:transparent;color:var(--text-primary);font-family:var(--font-d);font-weight:600;font-size:.95rem;
+      padding:15px 30px;border-radius:50px;text-decoration:none;border:1px solid var(--border);cursor:pointer;
+      transition:all .3s var(--ease);
+    }
+    .btn-secondary:hover { border-color:var(--accent);color:var(--accent);background:rgba(0,229,160,.06);transform:translateY(-2px); }
+
+    /* Invest button */
+    .btn-invest {
+      display:inline-flex;align-items:center;gap:8px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color:#000; font-family:var(--font-d);font-weight:700;font-size:.95rem;
+      padding:15px 30px;border-radius:50px;text-decoration:none;border:none;cursor:pointer;
+      transition:all .3s var(--spring);
+      box-shadow: 0 4px 20px rgba(245,158,11,0.3);
+    }
+    .btn-invest:hover {
+      transform:translateY(-3px) scale(1.03);
+      box-shadow:0 12px 40px rgba(245,158,11,.55);
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    }
+
+    /* === INVESTMENT SIMULATOR === */
+    .inv-simulator {
+      padding:100px 5%;
+      background:linear-gradient(180deg,transparent 0%,rgba(14,12,5,0.8) 20%,rgba(14,12,5,0.8) 80%,transparent 100%);
+    }
+    .inv-simulator .simulator-container { max-width:860px;margin:0 auto; }
+
+    .inv-card {
+      background: linear-gradient(135deg, #0d1108 0%, #111a0a 50%, #0a1122 100%);
+      border:1px solid rgba(245,158,11,0.15);
+      border-radius:var(--radius-xl);
+      padding:50px 50px 44px;
+      box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 60px rgba(245,158,11,0.05);
+      position:relative;overflow:hidden;
+    }
+    .inv-card::before {
+      content:'';position:absolute;top:0;left:0;right:0;height:3px;
+      background:linear-gradient(90deg,#f59e0b,#10b981,#f59e0b);
+      border-radius:var(--radius-xl) var(--radius-xl) 0 0;
+      background-size:200% 100%;
+      animation:investGrad 3s linear infinite;
+    }
+    @keyframes investGrad { 0%{background-position:0% 0%} 100%{background-position:200% 0%} }
+    .inv-card::after {
+      content:'';position:absolute;top:-100px;left:-80px;
+      width:300px;height:300px;
+      background:radial-gradient(circle,rgba(245,158,11,0.06) 0%,transparent 70%);
+      pointer-events:none;
+    }
+
+    .inv-tasa-bar {
+      background:rgba(245,158,11,0.07);
+      border:1px solid rgba(245,158,11,0.2);
+      border-radius:12px;padding:13px 18px;
+      font-size:.83rem;color:#f59e0b;
+      display:flex;align-items:center;justify-content:center;
+      gap:10px;margin-bottom:32px;flex-wrap:wrap;text-align:center;
+    }
+    .inv-tasa-bar strong { font-weight:700;color:var(--text-primary); }
+
+    /* Rate selector pills */
+    .rate-selector {
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px;
+    }
+    .rate-label-txt { font-size:.78rem;color:var(--text-muted);font-weight:600; }
+    .rate-track {
+      flex:1; display:flex; align-items:center; gap:8px;
+    }
+    input[type="range"].inv-range {
+      width:100%;-webkit-appearance:none;height:5px;
+      background:linear-gradient(90deg, #f59e0b var(--fill,50%), rgba(255,255,255,.08) var(--fill,50%));
+      border-radius:3px;outline:none;cursor:pointer;
+    }
+    input[type="range"].inv-range::-webkit-slider-thumb {
+      -webkit-appearance:none;width:22px;height:22px;
+      background:linear-gradient(135deg,#f59e0b,#d97706);
+      border-radius:50%;border:3px solid var(--bg-card);
+      box-shadow:0 0 0 2px #f59e0b, 0 0 15px rgba(245,158,11,.4);
+      transition:all .25s var(--spring);
+    }
+    input[type="range"].inv-range::-webkit-slider-thumb:hover { transform:scale(1.25); }
+
+    .rate-display {
+      font-family:var(--font-d);font-weight:800;font-size:1.4rem;
+      color:#f59e0b;min-width:52px;text-align:right;
+      text-shadow:0 0 20px rgba(245,158,11,.5);
+    }
+
+    /* Investment result boxes */
+    .inv-result-box {
+      background:rgba(255,255,255,.025);border:1px solid rgba(245,158,11,0.1);
+      border-radius:16px;padding:22px;text-align:center;
+      transition:all .25s var(--ease);
+    }
+    .inv-result-box:hover { border-color:rgba(245,158,11,.3); }
+    .inv-result-box.inv-highlight {
+      background:rgba(245,158,11,0.08);
+      border-color:rgba(245,158,11,0.35);
+      box-shadow:0 0 30px rgba(245,158,11,.12);
+    }
+    .inv-result-box.inv-highlight .result-value { color:#f59e0b; }
+
+    /* Invest WA button */
+    .btn-invest-wa {
+      width:100%;padding:22px 30px;
+      background:linear-gradient(135deg,#25d366 0%,#1aad54 60%,#128c3e 100%);
+      color:#fff;font-family:var(--font-d);font-weight:800;font-size:1.15rem;
+      border-radius:18px;border:none;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;gap:14px;
+      transition:all .3s var(--spring);position:relative;overflow:hidden;
+      box-shadow:0 8px 30px rgba(37,211,102,.35);letter-spacing:-.3px;
+    }
+    .btn-invest-wa::before { content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent 50%);opacity:0;transition:opacity .25s; }
+    .btn-invest-wa:hover { transform:translateY(-3px) scale(1.01);box-shadow:0 16px 50px rgba(37,211,102,.55),0 0 0 4px rgba(37,211,102,.2); }
+    .btn-invest-wa:hover::before { opacity:1; }
+    .btn-invest-wa:active { transform:translateY(-1px) scale(1); }
+    .btn-invest-wa:disabled { opacity:.4;cursor:not-allowed;transform:none;box-shadow:none; }
+    .btn-invest-wa .wa-icon { width:28px;height:28px;fill:#fff;flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.3)); }
+
+    /* Gold section tag */
+    .section-tag-gold { display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#f59e0b;margin-bottom:12px; }
+
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+    /* === ULTRA-REALISTIC CARD === */
+    .hero-visual { display:flex;justify-content:center;align-items:center; animation:fadeUp .9s ease .25s both; position:relative;padding:44px 24px; }
+
+    .card-scene { perspective:1000px; width:360px;height:220px; position:relative; }
+
+    .credit-card {
+      width:360px;height:220px;border-radius:22px;
+      position:relative;cursor:pointer;
+      transform-style:preserve-3d;
+      transition:transform .6s var(--ease);
+      animation:cardFloat 6s ease-in-out infinite, cardEntrance 1s ease both;
+      will-change:transform;
+    }
+    @keyframes cardFloat { 0%,100%{transform:rotateX(4deg) rotateY(-6deg) translateY(0)} 50%{transform:rotateX(-3deg) rotateY(6deg) translateY(-14px)} }
+    @keyframes cardEntrance { from{opacity:0;transform:rotateX(30deg) rotateY(-20deg) translateY(40px)} to{opacity:1} }
+
+    .card-face {
+      position:absolute;inset:0;border-radius:22px;overflow:hidden;
+      background:linear-gradient(135deg,#1a2740 0%,#0d1a30 40%,#051525 70%,#0a2240 100%);
+      box-shadow:0 40px 80px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.1),0 0 60px rgba(0,229,160,.12),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(0,0,0,.5);
+    }
+    .card-holo {
+      position:absolute;inset:0;
+      background:linear-gradient(105deg,transparent 35%,rgba(0,229,160,.06) 40%,rgba(0,196,255,.08) 45%,rgba(124,58,237,.06) 50%,transparent 55%);
+      background-size:200% 200%; animation:holographic 4s linear infinite;
+    }
+    @keyframes holographic { 0%{background-position:200% 0%} 100%{background-position:-200% 0%} }
+    .card-inner-light { position:absolute;top:-50%;left:-50%;width:100%;height:80%;background:radial-gradient(ellipse,rgba(255,255,255,.06) 0%,transparent 70%);transform:rotate(-30deg); }
+    .card-lines { position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0,rgba(255,255,255,.015) 1px,transparent 1px,transparent 4px); }
+
+    .card-face::before {
+      content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.04),transparent);
+      animation:cardShine 5s ease-in-out infinite;transform:skewX(-15deg);
+    }
+    @keyframes cardShine { 0%,100%{left:-60%} 50%{left:130%} }
+
+    .card-content { position:relative;z-index:2;padding:24px 28px;height:100%;display:flex;flex-direction:column;justify-content:space-between; }
+    .card-header { display:flex;justify-content:space-between;align-items:flex-start; }
+
+    .card-chip {
+      width:44px;height:34px;
+      background:linear-gradient(135deg,#c8960c 0%,#f5e163 30%,#b8830a 50%,#f0d060 70%,#d4a017 100%);
+      border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.4);
+      position:relative;overflow:hidden;
+    }
+    .card-chip::before { content:'';position:absolute;inset:3px;border:1px solid rgba(139,95,0,.6);border-radius:3px; }
+    .card-chip::after { content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(139,95,0,.4);transform:translateX(-50%); }
+    .chip-lines { position:absolute;inset:3px;display:flex;flex-direction:column;justify-content:space-around; }
+    .chip-line { height:1px;background:rgba(139,95,0,.35); }
+
+    .card-nfc { display:flex;align-items:center;justify-content:center;width:28px;height:28px;opacity:.5; }
+    .card-nfc svg { width:22px;height:22px;fill:none;stroke:rgba(255,255,255,.7);stroke-width:1.5; }
+
+    .card-number-row {
+      font-family:'Courier New',monospace;font-size:1.1rem;letter-spacing:3.5px;
+      color:rgba(240,244,255,.92);text-shadow:0 1px 4px rgba(0,0,0,.5);
+      display:flex;gap:14px;align-items:center;
+    }
+    .card-number-row .dots { letter-spacing:4px;opacity:.7; }
+
+    .card-footer-row { display:flex;justify-content:space-between;align-items:flex-end; }
+    .card-holder-block { display:flex;flex-direction:column;gap:2px; }
+    .card-holder-label { font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);font-family:var(--font-d); }
+    .card-holder-name { font-family:var(--font-d);font-weight:700;font-size:.92rem;letter-spacing:1px;color:rgba(240,244,255,.9);text-shadow:0 1px 4px rgba(0,0,0,.6);text-transform:uppercase; }
+    .card-expiry-block { display:flex;flex-direction:column;gap:2px;text-align:center; }
+    .card-expiry-label { font-size:.55rem;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.4);font-family:var(--font-d); }
+    .card-expiry-value { font-family:var(--font-d);font-weight:600;font-size:.88rem;color:rgba(240,244,255,.85); }
+    .card-brand-block { display:flex;flex-direction:column;align-items:flex-end;gap:5px; }
+    .card-brand-name { font-family:var(--font-d);font-weight:800;font-size:1.1rem;letter-spacing:-0.5px;color:var(--accent);text-shadow:0 0 20px rgba(0,229,160,.6),0 0 40px rgba(0,229,160,.3); }
+    .mc-circles { display:flex;align-items:center; }
+    .mc-c { width:22px;height:22px;border-radius:50%;opacity:.85; }
+    .mc-c1 { background:#eb001b;margin-right:-10px; }
+    .mc-c2 { background:#f79e1b; }
+
+    /* Float badges */
+    .float-badge {
+      position:absolute;background:rgba(10,17,34,.92);border:1px solid rgba(255,255,255,.1);
+      border-radius:14px;padding:10px 14px;font-size:.78rem;font-weight:600;color:var(--text-primary);
+      box-shadow:0 12px 40px rgba(0,0,0,.5);
+      display:flex;align-items:center;gap:9px;backdrop-filter:blur(12px);white-space:nowrap;z-index:10;
+    }
+    .badge-icon { font-size:1.1rem; }
+    .badge-label { font-size:.65rem;color:var(--text-muted);display:block;margin-bottom:1px; }
+    .badge-val { font-size:.88rem;font-weight:700; }
+    .float-badge-1 { top:8px;right:-15px;border-color:rgba(0,229,160,.25);animation:badgeBob1 4s ease-in-out infinite; }
+    .float-badge-2 { bottom:12px;left:-18px;border-color:rgba(0,196,255,.25);animation:badgeBob2 4s ease-in-out 2s infinite; }
+    @keyframes badgeBob1 { 0%,100%{transform:translateY(0) rotate(1deg)} 50%{transform:translateY(-10px) rotate(-1deg)} }
+    @keyframes badgeBob2 { 0%,100%{transform:translateY(0) rotate(-1deg)} 50%{transform:translateY(-8px) rotate(1deg)} }
+
+    /* === SECTION SHARED === */
+    section { position:relative;z-index:1; }
+    .section-header { text-align:center;margin-bottom:56px; }
+    .section-tag { display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px; }
+    .section-title { font-family:var(--font-d);font-size:clamp(2rem,4vw,2.9rem);font-weight:800;letter-spacing:-1px;line-height:1.15; }
+    .section-sub { color:var(--text-muted);font-size:1rem;margin-top:14px;max-width:500px;margin-left:auto;margin-right:auto; }
+
+    /* === SIMULATOR (SECTION 2) === */
+    .simulator {
+      padding:100px 5%;
+      background:linear-gradient(180deg,transparent 0%,rgba(10,17,34,.8) 20%,rgba(10,17,34,.8) 80%,transparent 100%);
+    }
+    .simulator-container { max-width:860px;margin:0 auto; }
+
+    .sim-card {
+      background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xl);
+      padding:50px 50px 44px;box-shadow:0 30px 80px rgba(0,0,0,.6);position:relative;overflow:hidden;
+    }
+    .sim-card::before { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3));border-radius:var(--radius-xl) var(--radius-xl) 0 0; }
+    .sim-card::after { content:'';position:absolute;top:-120px;right:-80px;width:350px;height:350px;background:radial-gradient(circle,rgba(0,229,160,.07) 0%,transparent 70%);pointer-events:none; }
+
+    .tasa-bar {
+      background:rgba(0,196,255,.06);border:1px solid rgba(0,196,255,.18);
+      border-radius:12px;padding:13px 18px;font-size:.83rem;color:var(--accent2);
+      display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:32px;flex-wrap:wrap;text-align:center;
+    }
+    .tasa-bar strong { font-weight:700;color:var(--text-primary); }
+
+    .sim-grid { display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:28px; }
+    .field-group { display:flex;flex-direction:column;gap:10px; }
+    .field-label { font-size:.8rem;font-weight:700;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;display:flex;align-items:center;gap:6px; }
+    .field-input-wrapper { position:relative; }
+    .field-prefix { position:absolute;left:16px;top:50%;transform:translateY(-50%);font-family:var(--font-d);font-weight:700;color:var(--accent);font-size:1.1rem;pointer-events:none; }
+
+    input[type="number"] {
+      width:100%;background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:14px;
+      padding:17px 16px 17px 38px;font-family:var(--font-d);font-size:1.25rem;font-weight:700;
+      color:var(--text-primary);outline:none;transition:all .25s var(--ease);-moz-appearance:textfield;
+    }
+    input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-inner-spin-button { -webkit-appearance:none; }
+    input[type="number"]:focus { border-color:var(--accent);background:rgba(0,229,160,.045);box-shadow:0 0 0 4px rgba(0,229,160,.12); }
+    input[type="number"]::placeholder { color:var(--text-dim);font-weight:400;font-size:1rem; }
+
+    .slider-wrap { margin-top:8px; }
+    input[type="range"] { width:100%;-webkit-appearance:none;height:5px;background:rgba(255,255,255,.08);border-radius:3px;outline:none;cursor:pointer; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none;width:20px;height:20px;background:var(--accent);border-radius:50%;border:3px solid var(--bg-card);box-shadow:0 0 0 2px var(--accent);transition:all .25s var(--spring); }
+    input[type="range"]::-webkit-slider-thumb:hover { transform:scale(1.25); }
+    .range-labels { display:flex;justify-content:space-between;font-size:.72rem;color:var(--text-dim);margin-top:4px; }
+
+    /* Plazo selector */
+    .plazo-options { display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px; }
+    .plazo-opt {
+      background:rgba(255,255,255,.04);border:1.5px solid var(--border);border-radius:12px;padding:13px 8px;
+      text-align:center;cursor:pointer;transition:all .22s var(--spring);display:flex;flex-direction:column;gap:3px;
+    }
+    .plazo-opt .opt-days { font-family:var(--font-d);font-size:1.1rem;font-weight:800;color:var(--text-primary); }
+    .plazo-opt .opt-label { font-size:.7rem;color:var(--text-muted); }
+    .plazo-opt:hover { border-color:rgba(0,229,160,.4);background:rgba(0,229,160,.04); }
+    .plazo-opt.active { border-color:var(--accent);background:rgba(0,229,160,.1);box-shadow:0 0 20px rgba(0,229,160,.15);transform:translateY(-2px); }
+    .plazo-opt.active .opt-days { color:var(--accent); }
+    .plazo-opt.active .opt-label { color:var(--accent);opacity:.8; }
+
+    /* Results */
+    .sim-results { display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0;opacity:0;transform:translateY(12px);transition:all .45s var(--ease); }
+    .sim-results.visible { opacity:1;transform:translateY(0); }
+    .result-box { background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:16px;padding:22px;text-align:center;transition:all .25s var(--ease); }
+    .result-box.highlight { background:rgba(0,229,160,.07);border-color:rgba(0,229,160,.3);box-shadow:0 0 30px rgba(0,229,160,.1); }
+    .result-box:hover { border-color:rgba(0,229,160,.3); }
+    .result-label { font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px; }
+    .result-value { font-family:var(--font-d);font-size:1.85rem;font-weight:800;color:var(--text-primary);letter-spacing:-1px; }
+    .result-box.highlight .result-value { color:var(--accent); }
+    .result-note { font-size:.7rem;color:var(--text-dim);margin-top:4px; }
+
+    /* BIG WhatsApp Button */
+    .btn-whatsapp-main {
+      width:100%;padding:22px 30px;
+      background:linear-gradient(135deg,#25d366 0%,#1aad54 60%,#128c3e 100%);
+      color:#fff;font-family:var(--font-d);font-weight:800;font-size:1.15rem;
+      border-radius:18px;border:none;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;gap:14px;
+      transition:all .3s var(--spring);position:relative;overflow:hidden;
+      box-shadow:0 8px 30px rgba(37,211,102,.35);letter-spacing:-.3px;
+    }
+    .btn-whatsapp-main::before { content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent 50%);opacity:0;transition:opacity .25s; }
+    .btn-whatsapp-main:hover { transform:translateY(-3px) scale(1.01);box-shadow:0 16px 50px rgba(37,211,102,.55),0 0 0 4px rgba(37,211,102,.2); }
+    .btn-whatsapp-main:hover::before { opacity:1; }
+    .btn-whatsapp-main:active { transform:translateY(-1px) scale(1); }
+    .btn-whatsapp-main:disabled { opacity:.4;cursor:not-allowed;transform:none;box-shadow:none; }
+    .btn-whatsapp-main .wa-icon { width:28px;height:28px;fill:#fff;flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.3)); }
+    .wa-text-block { display:flex;flex-direction:column;align-items:flex-start;gap:1px; }
+    .wa-main-text { font-size:1.1rem;font-weight:800; }
+    .wa-sub-text { font-size:.75rem;font-weight:400;opacity:.85;letter-spacing:0; }
+    .wa-pulse { position:absolute;inset:0;border-radius:18px;box-shadow:0 0 0 0 rgba(37,211,102,.5);animation:waPulse 2.5s ease-out infinite; }
+    @keyframes waPulse { 0%{box-shadow:0 0 0 0 rgba(37,211,102,.4)} 70%{box-shadow:0 0 0 12px rgba(37,211,102,0)} 100%{box-shadow:0 0 0 0 rgba(37,211,102,0)} }
+
+    /* === BENEFITS (SECTION 3) === */
+    .benefits { padding:100px 5%; }
+    .benefits-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;max-width:1100px;margin:0 auto; }
+    .benefit-card {
+      background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 30px;
+      transition:all .3s var(--spring);position:relative;overflow:hidden;
+    }
+    .benefit-card::after { content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,160,.04),transparent);opacity:0;transition:opacity .3s; }
+    .benefit-card:hover { border-color:rgba(0,229,160,.3);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.45),0 0 35px rgba(0,229,160,.1); }
+    .benefit-card:hover::after { opacity:1; }
+    .benefit-icon { width:56px;height:56px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.2);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px;transition:all .3s var(--ease);position:relative;z-index:1; }
+    .benefit-card:hover .benefit-icon { background:rgba(0,229,160,.18);box-shadow:0 0 25px rgba(0,229,160,.25);transform:scale(1.08) rotate(-3deg); }
+    .benefit-title { font-family:var(--font-d);font-size:1.12rem;font-weight:700;margin-bottom:10px;letter-spacing:-.3px;position:relative;z-index:1; }
+    .benefit-text { font-size:.9rem;color:var(--text-muted);line-height:1.7;position:relative;z-index:1; }
+
+    /* === HOW === */
+    .how { padding:100px 5%;background:linear-gradient(180deg,transparent 0%,rgba(10,17,34,.7) 20%,rgba(10,17,34,.7) 80%,transparent 100%); }
+    .steps { display:flex;gap:0;max-width:900px;margin:0 auto;position:relative; }
+    .steps::before { content:'';position:absolute;top:27px;left:calc(12.5% + 28px);right:calc(12.5% + 28px);height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:0; }
+    .step { flex:1;text-align:center;padding:0 14px;position:relative;z-index:1; }
+    .step-dot { width:54px;height:54px;background:var(--bg-card);border:2px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-weight:800;font-size:1.1rem;color:var(--accent);margin:0 auto 20px;box-shadow:0 0 25px rgba(0,229,160,.25);transition:all .3s var(--spring); }
+    .step:hover .step-dot { background:var(--accent);color:#000;transform:scale(1.15);box-shadow:0 0 40px rgba(0,229,160,.5); }
+    .step-title { font-family:var(--font-d);font-size:1rem;font-weight:700;margin-bottom:8px; }
+    .step-text { font-size:.84rem;color:var(--text-muted); }
+
+    /* === TESTIMONIALS === */
+    .testimonials { padding:80px 5%; }
+    .testimonials-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;max-width:1000px;margin:0 auto; }
+    .testimonial-card { background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;transition:all .3s var(--ease); }
+    .testimonial-card:hover { border-color:rgba(0,229,160,.2);transform:translateY(-4px); }
+    .stars { color:var(--accent);font-size:.88rem;margin-bottom:14px;letter-spacing:2px; }
+    .testimonial-text { font-size:.9rem;color:var(--text-muted);line-height:1.7;margin-bottom:18px;font-style:italic; }
+    .testimonial-author { display:flex;align-items:center;gap:12px; }
+    .author-avatar { width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;color:#000;flex-shrink:0; }
+    .author-name { font-weight:600;font-size:.9rem; }
+    .author-location { font-size:.77rem;color:var(--text-dim); }
+
+    /* === FOOTER === */
+    footer { padding:60px 5% 40px;border-top:1px solid var(--border);position:relative;z-index:1; }
+    .footer-inner { max-width:1100px;margin:0 auto; }
+    .footer-top { display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;margin-bottom:48px; }
+    .footer-col h4 { font-family:var(--font-d);font-size:.83rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text-primary);margin-bottom:16px; }
+    .footer-links { list-style:none; }
+    .footer-links li { margin-bottom:10px; }
+    .footer-links a { text-decoration:none;color:var(--text-muted);font-size:.88rem;transition:color .25s; }
+    .footer-links a:hover { color:var(--accent); }
+    .footer-bottom { display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid var(--border);flex-wrap:wrap;gap:12px; }
+    .footer-copy { font-size:.82rem;color:var(--text-dim); }
+    .footer-legal { font-size:.78rem;color:var(--text-dim);max-width:500px;text-align:right;line-height:1.5; }
+
+    /* === FLOATING WA === */
+    .whatsapp-float {
+      position:fixed;bottom:28px;right:28px;z-index:300;
+      width:64px;height:64px;border-radius:50%;border:none;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,#25d366,#1aad54);
+      box-shadow:0 6px 30px rgba(37,211,102,.55);
+      animation:fadeInFloat 1s ease 2s both, floatWA 3s ease-in-out 3s infinite;
+      transition:transform .3s var(--spring),box-shadow .3s;
+    }
+    .whatsapp-float:hover { transform:scale(1.15) !important;box-shadow:0 10px 45px rgba(37,211,102,.75) !important;animation-play-state:paused; }
+    .whatsapp-float svg { width:32px;height:32px;fill:#fff; }
+    .wa-ring { position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(37,211,102,.5);animation:ringPulse 2s ease-out infinite; }
+    @keyframes ringPulse { 0%{transform:scale(1);opacity:.8} 100%{transform:scale(1.5);opacity:0} }
+    .whatsapp-float::after { content:'Escríbenos ahora';position:absolute;right:72px;background:rgba(10,17,34,.95);border:1px solid var(--border);color:var(--text-primary);font-size:.78rem;font-weight:600;padding:8px 14px;border-radius:10px;white-space:nowrap;opacity:0;transition:opacity .25s;pointer-events:none;backdrop-filter:blur(10px); }
+    .whatsapp-float:hover::after { opacity:1; }
+    @keyframes fadeInFloat { from{opacity:0;transform:scale(.4)} to{opacity:1;transform:scale(1)} }
+    @keyframes floatWA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+    /* === REVEAL === */
+    .reveal { opacity:0;transform:translateY(38px);transition:opacity .7s var(--ease),transform .7s var(--ease); }
+    .reveal.revealed { opacity:1;transform:translateY(0); }
+
+    /* === RESPONSIVE === */
+    @media(max-width:900px){
+      .hero-inner{grid-template-columns:1fr;text-align:center}
+      .hero-subtitle,.hero-badge,.hours-badge{margin-left:auto;margin-right:auto}
+      .hero-buttons{justify-content:center}
+      .hero-visual{order:-1}
+      .card-scene,.credit-card{width:300px;height:185px}
+      .card-content{padding:18px 22px}
+      .card-number-row{font-size:.95rem;letter-spacing:2px;gap:10px}
+      .float-badge-1{right:0} .float-badge-2{left:0}
+      nav .nav-links{display:none}
+      .footer-top{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:640px){
+      .sim-card{padding:28px 20px}
+      .sim-grid{grid-template-columns:1fr}
+      .sim-results{grid-template-columns:1fr}
+      .plazo-options{grid-template-columns:repeat(2,1fr)}
+      .steps{flex-direction:column;gap:28px}
+      .steps::before{display:none}
+      .footer-top{grid-template-columns:1fr}
+      .footer-bottom{flex-direction:column;text-align:center}
+      .footer-legal{text-align:center;max-width:100%}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="logo">
+    <div class="logo-icon">A</div>
+<span style="color:#00FF00; font-weight:bold;">A&amp;A</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#simulador">Préstamos</a></li>
+    <li><a href="#invertir">Invertir</a></li>
+    <li><a href="#beneficios">Beneficios</a></li>
+    <li><a href="#como-funciona">Cómo funciona</a></li>
+    <li><a href="#simulador" class="nav-cta">Solicitar ahora</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><div class="badge-dot"></div>⚡ Aprobación en minutos</div>
+      <h1 class="hero-title">Préstamos<br><span class="gradient-text">rápidos y seguros</span><br>para ti.</h1>
+      <p class="hero-subtitle">Obtén el dinero que necesitas hoy mismo. Sin filas, sin papeleo y sin complicaciones. 100% digital y seguro.</p>
+      <div class="hours-badge">🕗 <strong>Atención:</strong>&nbsp; Lunes a Viernes &nbsp;·&nbsp; 8:00 AM – 5:00 PM</div>
+ <div class="hours-badge">🕗 <strong>Atención:</strong>·&nbsp;Sábado a Domingo &nbsp;·&nbsp; 8:00 AM – 12:00 PM</div>
+
+      <div class="hero-buttons">
+        <a href="#simulador" class="btn-primary">Simular mi préstamo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="#invertir" class="btn-invest">Invertir <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 7l5 5-5 5M6 12h12"/></svg></a>
+      </div>
+    </div>
+
+    <!-- ULTRA-REALISTIC CARD -->
+    <div class="hero-visual">
+      <div style="position:relative;">
+        <div class="card-scene">
+          <div class="credit-card">
+            <div class="card-face">
+              <div class="card-holo"></div>
+              <div class="card-inner-light"></div>
+              <div class="card-lines"></div>
+              <div class="card-content">
+                <div class="card-header">
+                  <div class="card-chip">
+                    <div class="chip-lines">
+                      <div class="chip-line"></div><div class="chip-line"></div><div class="chip-line"></div>
+                    </div>
+                  </div>
+                  <div class="card-nfc">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M8.5 8.5c1.93-1.93 5.07-1.93 7 0" stroke-linecap="round"/>
+                      <path d="M6 6c3.31-3.31 8.69-3.31 12 0" stroke-linecap="round" opacity="0.5"/>
+                      <circle cx="12" cy="12" r="1" fill="rgba(255,255,255,0.7)" stroke="none"/>
+                      <path d="M10.5 10.5c.83-.83 2.17-.83 3 0" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="card-number-row">
+                  <span>4821</span><span class="dots">••••</span><span class="dots">••••</span><span>7934</span>
+                </div>
+                <div class="card-footer-row">
+                  <div class="card-holder-block">
+                    <span class="card-holder-label">Titular</span>
+                    <span class="card-holder-name">Adrian G.</span>
+                  </div>
+                  <div class="card-expiry-block">
+                    <span class="card-expiry-label">Válido</span>
+                    <span class="card-expiry-value">08/28</span>
+                  </div>
+                  <div class="card-brand-block">
+                    <div class="card-brand-name">A&amp;A</div>
+                    <div class="mc-circles"><div class="mc-c mc-c1"></div><div class="mc-c mc-c2"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="float-badge float-badge-1">
+          <span class="badge-icon">✅</span>
+          <div><span class="badge-label">Aprobado</span><span class="badge-val">$500,000</span></div>
+        </div>
+        <div class="float-badge float-badge-2">
+          <span class="badge-icon">🔒</span>
+          <div><span class="badge-label">Seguridad</span><span class="badge-val">SSL 256-bit</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIMULADOR (SECCIÓN 2) -->
+<section class="simulator" id="simulador">
+  <div class="simulator-container">
+    <div class="section-header reveal">
+      <div class="section-tag">Calcula tu préstamo</div>
+      <h2 class="section-title">¿Cuánto necesitas?</h2>
+      <p class="section-sub">Ajusta el monto y el plazo. Calculamos todo por ti al instante.</p>
+    </div>
+    <div class="sim-card reveal">
+      <div class="tasa-bar">ℹ️ Tasa según plazo: <strong>1 sem → 18%</strong> · <strong>2 sem → 20%</strong> · <strong>3 sem → 23%</strong> · <strong>1 mes → 25%</strong> &nbsp;·&nbsp; Sin costos ocultos</div>
+      <div class="sim-grid">
+        <!-- Monto -->
+        <div class="field-group">
+          <label class="field-label">💰 Monto del préstamo</label>
+          <div class="field-input-wrapper">
+            <span class="field-prefix">$</span>
+            <input type="number" id="monto" placeholder="50.000" min="50000" max="5000000" step="50000" />
+          </div>
+          <div class="slider-wrap">
+            <input type="range" id="monto-slider" min="50000" max="5000000" step="50000" value="200000" />
+            <div class="range-labels"><span>$50.000</span><span>$5.000.000</span></div>
+          </div>
+        </div>
+        <!-- Plazo -->
+        <div class="field-group">
+          <label class="field-label">📅 Plazo de pago</label>
+          <div class="plazo-options">
+            <div class="plazo-opt" data-semanas="1" onclick="seleccionarPlazo(this)">
+              <span class="opt-days">1</span><span class="opt-label">semana</span>
+            </div>
+            <div class="plazo-opt active" data-semanas="2" onclick="seleccionarPlazo(this)">
+              <span class="opt-days">2</span><span class="opt-label">semanas</span>
+            </div>
+            <div class="plazo-opt" data-semanas="3" onclick="seleccionarPlazo(this)">
+              <span class="opt-days">3</span><span class="opt-label">semanas</span>
+            </div>
+            <div class="plazo-opt" data-semanas="4" onclick="seleccionarPlazo(this)">
+              <span class="opt-days">1</span><span class="opt-label">mes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="sim-results" id="sim-results">
+        <div class="result-box">
+          <div class="result-label">💵 Capital</div>
+          <div class="result-value" id="r-capital">$0</div>
+          <div class="result-note">Lo que recibes</div>
+        </div>
+        <div class="result-box">
+          <div class="result-label">📈 Interés (<span id="r-tasa-label">20%</span>)</div>
+          <div class="result-value" id="r-interes">$0</div>
+          <div class="result-note">Costo del préstamo</div>
+        </div>
+        <div class="result-box highlight" style="grid-column:span 2">
+          <div class="result-label">💳 Total a devolver</div>
+          <div class="result-value" id="r-total">$0</div>
+          <div class="result-note">Pago único al vencimiento del plazo</div>
+        </div>
+      </div>
+
+      <!-- BIG WA BUTTON -->
+      <button class="btn-whatsapp-main" id="btn-wa" onclick="abrirWhatsApp()" disabled>
+        <div class="wa-pulse"></div>
+        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        <div class="wa-text-block">
+          <span class="wa-main-text">Solicitar por WhatsApp</span>
+          <span class="wa-sub-text">Simula primero · Respuesta inmediata</span>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- SIMULADOR DE INVERSIÓN -->
+<section class="inv-simulator" id="invertir">
+  <div class="simulator-container">
+    <div class="section-header reveal">
+      <div class="section-tag-gold">💹 Haz crecer tu dinero</div>
+      <h2 class="section-title">Simula tu <span style="background:linear-gradient(120deg,#f59e0b,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">inversión</span></h2>
+      <p class="section-sub">Descubre cuánto puede crecer tu dinero con A&amp;A. Rendimientos del 5% al 10% mensual.</p>
+    </div>
+
+    <div class="inv-card reveal">
+      <div class="inv-tasa-bar">
+        📈 Rendimiento mensual: <strong id="inv-tasa-display">7.5%</strong> &nbsp;·&nbsp; Varía entre <strong>5%</strong> y <strong>10%</strong> según el plan
+      </div>
+
+      <div class="sim-grid">
+        <!-- Capital a invertir -->
+        <div class="field-group">
+          <label class="field-label" style="color:#f59e0b;">💰 Capital a invertir</label>
+          <div class="field-input-wrapper">
+            <span class="field-prefix" style="color:#f59e0b;">$</span>
+            <input type="number" id="inv-monto" placeholder="100.000" min="100000" max="10000000" step="100000" style="border-color:rgba(245,158,11,0.2);" />
+          </div>
+          <div class="slider-wrap">
+            <input type="range" class="inv-range" id="inv-monto-slider" min="100000" max="10000000" step="100000" value="500000" />
+            <div class="range-labels"><span>$100.000</span><span>$10.000.000</span></div>
+          </div>
+        </div>
+
+        <!-- Tasa de rendimiento -->
+        <div class="field-group">
+          <label class="field-label" style="color:#f59e0b;">📊 Tasa de rendimiento mensual</label>
+          <div class="rate-selector">
+            <div class="rate-track">
+              <input type="range" class="inv-range" id="inv-tasa-slider" min="5" max="10" step="0.5" value="7.5" oninput="actualizarTasaDisplay(this.value)" />
+            </div>
+            <span class="rate-display" id="inv-tasa-val">7.5%</span>
+          </div>
+          <!-- Rate tier labels -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px;">
+            <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;transition:all .2s;" onclick="setTasa(5)" class="tier-pill">
+              <div style="font-family:var(--font-d);font-weight:800;color:#f59e0b;font-size:.95rem;">5%</div>
+              <div style="font-size:.68rem;color:var(--text-muted);">Plan Básico</div>
+            </div>
+            <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;transition:all .2s;" onclick="setTasa(7.5)" class="tier-pill">
+              <div style="font-family:var(--font-d);font-weight:800;color:#f59e0b;font-size:.95rem;">7.5%</div>
+              <div style="font-size:.68rem;color:var(--text-muted);">Plan Plus</div>
+            </div>
+            <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;transition:all .2s;" onclick="setTasa(10)" class="tier-pill">
+              <div style="font-family:var(--font-d);font-weight:800;color:#f59e0b;font-size:.95rem;">10%</div>
+              <div style="font-size:.68rem;color:var(--text-muted);">Plan Premium</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="sim-results" id="inv-results">
+        <div class="inv-result-box">
+          <div class="result-label">💵 Capital invertido</div>
+          <div class="result-value" id="inv-r-capital">$0</div>
+          <div class="result-note">Lo que pones</div>
+        </div>
+        <div class="inv-result-box">
+          <div class="result-label">📈 Ganancia mensual</div>
+          <div class="result-value" id="inv-r-ganancia">$0</div>
+          <div class="result-note">Rendimiento del período</div>
+        </div>
+        <div class="inv-result-box inv-highlight" style="grid-column:span 2">
+          <div class="result-label">🏆 Total a recibir</div>
+          <div class="result-value" id="inv-r-total">$0</div>
+          <div class="result-note">Capital + rendimiento al finalizar el mes</div>
+        </div>
+      </div>
+
+      <!-- WA Button -->
+      <button class="btn-invest-wa" id="btn-inv-wa" onclick="abrirWhatsAppInversion()" disabled>
+        <div class="wa-pulse"></div>
+        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        <div class="wa-text-block">
+          <span class="wa-main-text">Quiero invertir por WhatsApp</span>
+          <span class="wa-sub-text">Habla con un asesor · Sin costo</span>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFICIOS (SECCIÓN 3) -->
+<section class="benefits" id="beneficios">
+  <div class="section-header reveal">
+    <div class="section-tag">¿Por qué elegirnos?</div>
+    <h2 class="section-title">Todo lo que necesitas<br>en un solo lugar</h2>
+    <p class="section-sub">Diseñamos cada proceso pensando en tu comodidad y seguridad.</p>
+  </div>
+  <div class="benefits-grid">
+    <div class="benefit-card reveal">
+      <div class="benefit-icon">⚡</div>
+      <h3 class="benefit-title">Aprobación ultra rápida</h3>
+      <p class="benefit-text">Respuesta en minutos. Tu solicitud es evaluada de forma ágil y sin esperas innecesarias.</p>
+    </div>
+    <div class="benefit-card reveal" style="transition-delay:.1s">
+      <div class="benefit-icon">📄</div>
+      <h3 class="benefit-title">Sin papeleo</h3>
+      <p class="benefit-text">Todo 100% digital. Solo necesitas tu documento de identidad. Sin formularios físicos ni visitas.</p>
+    </div>
+    <div class="benefit-card reveal" style="transition-delay:.2s">
+      <div class="benefit-icon">🔐</div>
+      <h3 class="benefit-title">100% seguro</h3>
+      <p class="benefit-text">Tu información está protegida. Nunca compartimos tus datos con terceros bajo ninguna circunstancia.</p>
+    </div>
+    <div class="benefit-card reveal" style="transition-delay:.3s">
+      <div class="benefit-icon">💸</div>
+      <h3 class="benefit-title">Dinero en tu cuenta</h3>
+      <p class="benefit-text">Una vez aprobado, el desembolso se realiza de forma rápida directamente a tu cuenta o billetera.</p>
+    </div>
+    <div class="benefit-card reveal" style="transition-delay:.4s">
+      <div class="benefit-icon">📱</div>
+      <h3 class="benefit-title">Gestión por WhatsApp</h3>
+      <p class="benefit-text">Gestiona tu préstamo desde WhatsApp cuando quieras, sin apps adicionales ni portales complicados.</p>
+    </div>
+    <div class="benefit-card reveal" style="transition-delay:.5s">
+      <div class="benefit-icon">🤝</div>
+      <h3 class="benefit-title">Atención personalizada</h3>
+      <p class="benefit-text">Un asesor real disponible en horario de atención (8am–5pm) para guiarte en cada etapa del proceso.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="como-funciona">
+  <div class="section-header reveal">
+    <div class="section-tag">Proceso simple</div>
+    <h2 class="section-title">Listo en 4 pasos</h2>
+    <p class="section-sub">Desde tu celular, en minutos, sin complicaciones.</p>
+  </div>
+  <div class="steps reveal">
+    <div class="step"><div class="step-dot">1</div><div class="step-title">Simula</div><p class="step-text">Elige el monto y el plazo que más se ajuste a tus necesidades.</p></div>
+    <div class="step"><div class="step-dot">2</div><div class="step-title">Solicita</div><p class="step-text">Escríbenos por WhatsApp. Sin formularios largos ni requisitos complicados.</p></div>
+    <div class="step"><div class="step-dot">3</div><div class="step-title">Aprobación</div><p class="step-text">Revisamos tu solicitud y te respondemos en minutos durante horario de atención.</p></div>
+    <div class="step"><div class="step-dot">4</div><div class="step-title">Recibe</div><p class="step-text">El dinero llega a tu cuenta o billetera de forma rápida y segura. ¡Listo!</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-header reveal">
+    <div class="section-tag">Testimonios</div>
+    <h2 class="section-title">Lo que dicen<br>nuestros clientes</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Increíblemente rápido. Solicité el préstamo en la mañana y en la tarde ya tenía el dinero. Totalmente recomendado."</p>
+      <div class="testimonial-author"><div class="author-avatar">CM</div><div><div class="author-name">Carlos Martínez</div><div class="author-location">Colombia</div></div></div>
+    </div>
+    <div class="testimonial-card reveal" style="transition-delay:.15s">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Todo fue por WhatsApp, sin papeleo ni trámites. El servicio es excelente, muy atentos y rápidos en responder."</p>
+      <div class="testimonial-author"><div class="author-avatar">LR</div><div><div class="author-name">Laura Rodríguez</div><div class="author-location">Colombia</div></div></div>
+    </div>
+    <div class="testimonial-card reveal" style="transition-delay:.3s">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Necesitaba dinero urgente para mi negocio y me aprobaron en menos de una hora. Las condiciones son claras desde el principio."</p>
+      <div class="testimonial-author"><div class="author-avatar">JP</div><div><div class="author-name">Javier Peña</div><div class="author-location">Colombia</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul class="footer-links">
+          <li><a href="#simulador">Simulador de préstamos</a></li>
+          <li><a href="#beneficios">Préstamos personales</a></li>
+          <li><a href="#">Préstamos para negocio</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul class="footer-links">
+          <li><a href="#">Sobre nosotros</a></li>
+          <li><a href="#">Términos y condiciones</a></li>
+          <li><a href="#">Política de privacidad</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul class="footer-links">
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Horario: 8am – 5pm</a></li>
+          <li><a href="#">Lunes a Viernes</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 A&amp;A. Todos los derechos reservados.</p>
+      <p class="footer-legal">Las tasas mostradas son referenciales. El crédito está sujeto a estudio y aprobación. Revise los términos y condiciones antes de adquirir cualquier producto financiero.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING WA -->
+<button class="whatsapp-float" onclick="abrirWhatsAppGeneral()" title="Contáctanos por WhatsApp">
+  <div class="wa-ring"></div>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</button>
+
+<script>
+  const WHATSAPP_NUMBER = '573052131345'; // ← Cambia aquí tu número
+
+  // Tasas por plazo
+  const TASAS_PLAZO = { 1: 0.18, 2: 0.20, 3: 0.23, 4: 0.25 };
+
+  let semanasSeleccionadas = 2;
+  let resultadoActual = null;
+
+  function fmt(v) {
+    return new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0,maximumFractionDigits:0}).format(v);
+  }
+
+  function seleccionarPlazo(el) {
+    document.querySelectorAll('.plazo-opt').forEach(e => e.classList.remove('active'));
+    el.classList.add('active');
+    semanasSeleccionadas = parseInt(el.getAttribute('data-semanas'));
+    calcular();
+  }
+
+  const montoInput  = document.getElementById('monto');
+  const montoSlider = document.getElementById('monto-slider');
+
+  montoInput.addEventListener('input', () => {
+    const v = Math.min(Math.max(Number(montoInput.value), 50000), 5000000);
+    montoSlider.value = v;
+    calcular();
+  });
+  montoSlider.addEventListener('input', () => {
+    montoInput.value = montoSlider.value;
+    calcular();
+  });
+
+  function calcular() {
+    const monto = parseFloat(montoInput.value) || 0;
+    if (monto < 50000) return;
+    const tasa    = TASAS_PLAZO[semanasSeleccionadas] || 0.20;
+    const interes = monto * tasa;
+    const total   = monto + interes;
+    resultadoActual = { monto, interes, total, semanas: semanasSeleccionadas, tasa };
+    // Update the dynamic label
+    document.getElementById('r-tasa-label').textContent = (tasa * 100) + '%';
+    animarValor('r-capital', monto);
+    animarValor('r-interes', interes);
+    animarValor('r-total',   total);
+    document.getElementById('sim-results').classList.add('visible');
+    document.getElementById('btn-wa').disabled = false;
+  }
+
+  function animarValor(id, final) {
+    const el = document.getElementById(id);
+    const dur = 550, t0 = Date.now();
+    function tick() {
+      const p = Math.min((Date.now()-t0)/dur,1);
+      const e = 1 - Math.pow(1-p,3);
+      el.textContent = fmt(Math.round(final*e));
+      if(p<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function plazoTexto(s) { return s===4 ? '1 mes' : s+(s===1?' semana':' semanas'); }
+
+  function abrirWhatsApp() {
+    if (!resultadoActual) return;
+    const {monto,interes,total,semanas,tasa} = resultadoActual;
+    const msg =
+      `Hola A&A! 👋 Quiero solicitar un préstamo:\n\n`+
+      `💰 *Monto:* ${fmt(monto)}\n`+
+      `📅 *Plazo:* ${plazoTexto(semanas)}\n`+
+      `📈 *Interés (${(tasa*100)}%):* ${fmt(Math.round(interes))}\n`+
+      `💳 *Total a devolver:* ${fmt(Math.round(total))}\n\n`+
+      `¿Me pueden ayudar con más información? 🙏`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
+  }
+
+  function abrirWhatsAppGeneral() {
+    const msg = `Hola A&A! 👋 Me interesa obtener información sobre sus préstamos. ¿Me pueden ayudar?`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
+  }
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target);} });
+  },{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Navbar
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+    });
+  });
+
+  // ---- INVESTMENT SIMULATOR ----
+  let invTasa = 7.5;
+  let invResultadoActual = null;
+
+  const invMontoInput  = document.getElementById('inv-monto');
+  const invMontoSlider = document.getElementById('inv-monto-slider');
+  const invTasaSlider  = document.getElementById('inv-tasa-slider');
+
+  function actualizarTasaDisplay(v) {
+    invTasa = parseFloat(v);
+    document.getElementById('inv-tasa-val').textContent = invTasa + '%';
+    document.getElementById('inv-tasa-display').textContent = invTasa + '%';
+    // Update slider gradient fill
+    invTasaSlider.style.setProperty('--fill', ((invTasa - 5) / 5 * 100) + '%');
+    calcularInversion();
+  }
+
+  function setTasa(v) {
+    invTasaSlider.value = v;
+    actualizarTasaDisplay(v);
+  }
+
+  invMontoInput.addEventListener('input', () => {
+    const v = Math.min(Math.max(Number(invMontoInput.value), 100000), 10000000);
+    invMontoSlider.value = v;
+    calcularInversion();
+  });
+  invMontoSlider.addEventListener('input', () => {
+    invMontoInput.value = invMontoSlider.value;
+    // Update slider gradient fill
+    const pct = ((invMontoSlider.value - 100000) / (10000000 - 100000) * 100);
+    invMontoSlider.style.setProperty('--fill', pct + '%');
+    calcularInversion();
+  });
+  invTasaSlider.addEventListener('input', () => actualizarTasaDisplay(invTasaSlider.value));
+
+  function calcularInversion() {
+    const capital = parseFloat(invMontoInput.value) || 0;
+    if (capital < 100000) return;
+    const ganancia = capital * (invTasa / 100);
+    const total    = capital + ganancia;
+    invResultadoActual = { capital, ganancia, total, tasa: invTasa };
+    animarValor('inv-r-capital', capital);
+    animarValor('inv-r-ganancia', ganancia);
+    animarValor('inv-r-total', total);
+    document.getElementById('inv-results').classList.add('visible');
+    document.getElementById('btn-inv-wa').disabled = false;
+  }
+
+  function abrirWhatsAppInversion() {
+    if (!invResultadoActual) return;
+    const { capital, ganancia, total, tasa } = invResultadoActual;
+    const msg =
+      `Hola A&A! 👋 Me interesa invertir con ustedes:\n\n`+
+      `💰 *Capital a invertir:* ${fmt(capital)}\n`+
+      `📈 *Tasa de rendimiento:* ${tasa}% mensual\n`+
+      `🏆 *Ganancia mensual:* ${fmt(Math.round(ganancia))}\n`+
+      `✅ *Total a recibir:* ${fmt(Math.round(total))}\n\n`+
+      `¿Me pueden dar más información sobre cómo invertir? 🙏`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
+  }
+
+  // Init investment simulator
+  window.addEventListener('DOMContentLoaded', () => {
+    // existing init...
+    montoInput.value = 200000;
+    montoSlider.value = 200000;
+    calcular();
+    // investment init
+    invMontoInput.value = 500000;
+    invMontoSlider.value = 500000;
+    actualizarTasaDisplay(7.5);
+    calcularInversion();
+  });
+  // Card 3D mouse parallax
+  const card = document.querySelector('.credit-card');
+  const scene = document.querySelector('.card-scene');
+  if(scene && card){
+    scene.addEventListener('mousemove', e => {
+      const r = scene.getBoundingClientRect();
+      const x = (e.clientX-r.left)/r.width - 0.5;
+      const y = (e.clientY-r.top)/r.height - 0.5;
+      card.style.animation = 'none';
+      card.style.transform = `rotateX(${-y*18}deg) rotateY(${x*22}deg) translateZ(10px)`;
+    });
+    scene.addEventListener('mouseleave', () => {
+      card.style.animation = 'cardFloat 6s ease-in-out infinite';
+      card.style.transform = '';
+    });
+  }
+</script>
+</body>
+</html>
