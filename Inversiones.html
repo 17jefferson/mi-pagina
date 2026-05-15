@@ -152,124 +152,6 @@
     }
     .btn-secondary:hover { border-color:var(--accent);color:var(--accent);background:rgba(0,229,160,.06);transform:translateY(-2px); }
 
-    /* Invest button */
-    .btn-invest {
-      display:inline-flex;align-items:center;gap:8px;
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      color:#000; font-family:var(--font-d);font-weight:700;font-size:.95rem;
-      padding:15px 30px;border-radius:50px;text-decoration:none;border:none;cursor:pointer;
-      transition:all .3s var(--spring);
-      box-shadow: 0 4px 20px rgba(245,158,11,0.3);
-    }
-    .btn-invest:hover {
-      transform:translateY(-3px) scale(1.03);
-      box-shadow:0 12px 40px rgba(245,158,11,.55);
-      background: linear-gradient(135deg, #fbbf24, #f59e0b);
-    }
-
-    /* === INVESTMENT SIMULATOR === */
-    .inv-simulator {
-      padding:100px 5%;
-      background:linear-gradient(180deg,transparent 0%,rgba(14,12,5,0.8) 20%,rgba(14,12,5,0.8) 80%,transparent 100%);
-    }
-    .inv-simulator .simulator-container { max-width:860px;margin:0 auto; }
-
-    .inv-card {
-      background: linear-gradient(135deg, #0d1108 0%, #111a0a 50%, #0a1122 100%);
-      border:1px solid rgba(245,158,11,0.15);
-      border-radius:var(--radius-xl);
-      padding:50px 50px 44px;
-      box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 60px rgba(245,158,11,0.05);
-      position:relative;overflow:hidden;
-    }
-    .inv-card::before {
-      content:'';position:absolute;top:0;left:0;right:0;height:3px;
-      background:linear-gradient(90deg,#f59e0b,#10b981,#f59e0b);
-      border-radius:var(--radius-xl) var(--radius-xl) 0 0;
-      background-size:200% 100%;
-      animation:investGrad 3s linear infinite;
-    }
-    @keyframes investGrad { 0%{background-position:0% 0%} 100%{background-position:200% 0%} }
-    .inv-card::after {
-      content:'';position:absolute;top:-100px;left:-80px;
-      width:300px;height:300px;
-      background:radial-gradient(circle,rgba(245,158,11,0.06) 0%,transparent 70%);
-      pointer-events:none;
-    }
-
-    .inv-tasa-bar {
-      background:rgba(245,158,11,0.07);
-      border:1px solid rgba(245,158,11,0.2);
-      border-radius:12px;padding:13px 18px;
-      font-size:.83rem;color:#f59e0b;
-      display:flex;align-items:center;justify-content:center;
-      gap:10px;margin-bottom:32px;flex-wrap:wrap;text-align:center;
-    }
-    .inv-tasa-bar strong { font-weight:700;color:var(--text-primary); }
-
-    /* Rate selector pills */
-    .rate-selector {
-      display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px;
-    }
-    .rate-label-txt { font-size:.78rem;color:var(--text-muted);font-weight:600; }
-    .rate-track {
-      flex:1; display:flex; align-items:center; gap:8px;
-    }
-    input[type="range"].inv-range {
-      width:100%;-webkit-appearance:none;height:5px;
-      background:linear-gradient(90deg, #f59e0b var(--fill,50%), rgba(255,255,255,.08) var(--fill,50%));
-      border-radius:3px;outline:none;cursor:pointer;
-    }
-    input[type="range"].inv-range::-webkit-slider-thumb {
-      -webkit-appearance:none;width:22px;height:22px;
-      background:linear-gradient(135deg,#f59e0b,#d97706);
-      border-radius:50%;border:3px solid var(--bg-card);
-      box-shadow:0 0 0 2px #f59e0b, 0 0 15px rgba(245,158,11,.4);
-      transition:all .25s var(--spring);
-    }
-    input[type="range"].inv-range::-webkit-slider-thumb:hover { transform:scale(1.25); }
-
-    .rate-display {
-      font-family:var(--font-d);font-weight:800;font-size:1.4rem;
-      color:#f59e0b;min-width:52px;text-align:right;
-      text-shadow:0 0 20px rgba(245,158,11,.5);
-    }
-
-    /* Investment result boxes */
-    .inv-result-box {
-      background:rgba(255,255,255,.025);border:1px solid rgba(245,158,11,0.1);
-      border-radius:16px;padding:22px;text-align:center;
-      transition:all .25s var(--ease);
-    }
-    .inv-result-box:hover { border-color:rgba(245,158,11,.3); }
-    .inv-result-box.inv-highlight {
-      background:rgba(245,158,11,0.08);
-      border-color:rgba(245,158,11,0.35);
-      box-shadow:0 0 30px rgba(245,158,11,.12);
-    }
-    .inv-result-box.inv-highlight .result-value { color:#f59e0b; }
-
-    /* Invest WA button */
-    .btn-invest-wa {
-      width:100%;padding:22px 30px;
-      background:linear-gradient(135deg,#25d366 0%,#1aad54 60%,#128c3e 100%);
-      color:#fff;font-family:var(--font-d);font-weight:800;font-size:1.15rem;
-      border-radius:18px;border:none;cursor:pointer;
-      display:flex;align-items:center;justify-content:center;gap:14px;
-      transition:all .3s var(--spring);position:relative;overflow:hidden;
-      box-shadow:0 8px 30px rgba(37,211,102,.35);letter-spacing:-.3px;
-    }
-    .btn-invest-wa::before { content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent 50%);opacity:0;transition:opacity .25s; }
-    .btn-invest-wa:hover { transform:translateY(-3px) scale(1.01);box-shadow:0 16px 50px rgba(37,211,102,.55),0 0 0 4px rgba(37,211,102,.2); }
-    .btn-invest-wa:hover::before { opacity:1; }
-    .btn-invest-wa:active { transform:translateY(-1px) scale(1); }
-    .btn-invest-wa:disabled { opacity:.4;cursor:not-allowed;transform:none;box-shadow:none; }
-    .btn-invest-wa .wa-icon { width:28px;height:28px;fill:#fff;flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.3)); }
-
-    /* Gold section tag */
-    .section-tag-gold { display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#f59e0b;margin-bottom:12px; }
-
-
     @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
 
     /* === ULTRA-REALISTIC CARD === */
@@ -554,6 +436,39 @@
       .footer-bottom{flex-direction:column;text-align:center}
       .footer-legal{text-align:center;max-width:100%}
     }
+
+    /* === LEGAL MODALS === */
+    .legal-modal {
+      display:none; position:fixed; inset:0; z-index:9000;
+      background:rgba(3,6,16,0.85); backdrop-filter:blur(12px);
+      align-items:center; justify-content:center; padding:20px;
+    }
+    .legal-card {
+      background:var(--bg-card); border:1px solid var(--border);
+      border-radius:var(--radius-xl); padding:40px 44px;
+      max-width:680px; width:100%; max-height:80vh; overflow-y:auto;
+      position:relative; box-shadow:0 40px 100px rgba(0,0,0,.8);
+    }
+    .legal-card::-webkit-scrollbar { width:4px; }
+    .legal-card::-webkit-scrollbar-thumb { background:var(--accent); border-radius:2px; }
+    .legal-card h2 { font-family:var(--font-d); font-size:1.5rem; font-weight:800; margin-bottom:6px; }
+    .legal-card h3 { font-family:var(--font-d); font-size:1rem; font-weight:700; margin:18px 0 8px; color:var(--accent); }
+    .legal-card p { font-size:.9rem; color:var(--text-muted); line-height:1.75; margin-bottom:8px; }
+    .legal-card ul { padding-left:18px; margin-bottom:8px; }
+    .legal-card ul li { font-size:.9rem; color:var(--text-muted); line-height:1.75; margin-bottom:4px; }
+    .legal-date { font-size:.78rem; color:var(--text-dim); margin-bottom:22px; }
+    .legal-divider { height:1px; background:var(--border); margin:16px 0; }
+    .legal-close { text-align:center; margin-top:28px; }
+    .legal-close-btn {
+      background:var(--accent); color:#000; font-family:var(--font-d);
+      font-weight:700; font-size:.95rem; padding:12px 36px;
+      border:none; border-radius:50px; cursor:pointer;
+      transition:all .3s var(--spring);
+    }
+    .legal-close-btn:hover { transform:translateY(-2px) scale(1.04); box-shadow:0 8px 28px rgba(0,229,160,.4); }
+    @media(max-width:600px){
+      .legal-card { padding:28px 22px; }
+    }
   </style>
 </head>
 <body>
@@ -566,7 +481,6 @@
   </a>
   <ul class="nav-links">
     <li><a href="#simulador">Préstamos</a></li>
-    <li><a href="#invertir">Invertir</a></li>
     <li><a href="#beneficios">Beneficios</a></li>
     <li><a href="#como-funciona">Cómo funciona</a></li>
     <li><a href="#simulador" class="nav-cta">Solicitar ahora</a></li>
@@ -589,7 +503,6 @@
 
       <div class="hero-buttons">
         <a href="#simulador" class="btn-primary">Simular mi préstamo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        <a href="#invertir" class="btn-invest">Invertir <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 7l5 5-5 5M6 12h12"/></svg></a>
       </div>
     </div>
 
@@ -729,95 +642,6 @@
   </div>
 </section>
 
-<!-- SIMULADOR DE INVERSIÓN -->
-<section class="inv-simulator" id="invertir">
-  <div class="simulator-container">
-    <div class="section-header reveal">
-      <div class="section-tag-gold">💹 Haz crecer tu dinero</div>
-      <h2 class="section-title">Simula tu <span style="background:linear-gradient(120deg,#f59e0b,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">inversión</span></h2>
-      <p class="section-sub">Descubre cuánto puede crecer tu dinero con A&amp;A. Rendimientos del 5% al 10% mensual.</p>
-    </div>
-
-    <div class="inv-card reveal">
-      <div class="inv-tasa-bar">
-        📈 Rendimiento mensual: <strong id="inv-tasa-display">7.5%</strong> &nbsp;·&nbsp; Varía entre <strong>5%</strong> y <strong>10%</strong> según el plan
-      </div>
-
-      <div class="sim-grid">
-        <!-- Capital a invertir -->
-        <div class="field-group">
-          <label class="field-label" style="color:#f59e0b;">💰 Capital a invertir</label>
-          <div class="field-input-wrapper">
-            <span class="field-prefix" style="color:#f59e0b;">$</span>
-            <input type="number" id="inv-monto" placeholder="100.000" min="100000" max="10000000" step="100000" style="border-color:rgba(245,158,11,0.2);" />
-          </div>
-          <div class="slider-wrap">
-            <input type="range" class="inv-range" id="inv-monto-slider" min="100000" max="10000000" step="100000" value="500000" />
-            <div class="range-labels"><span>$100.000</span><span>$10.000.000</span></div>
-          </div>
-        </div>
-
-        <!-- Tasa de rendimiento -->
-        <div class="field-group">
-          <label class="field-label" style="color:#f59e0b;">📊 Tasa de rendimiento mensual</label>
-          <div class="rate-selector">
-            <div class="rate-track">
-              <input type="range" class="inv-range" id="inv-tasa-slider" min="5" max="10" step="0.5" value="7.5" oninput="actualizarTasaDisplay(this.value)" />
-            </div>
-            <span class="rate-display" id="inv-tasa-val">7.5%</span>
-          </div>
-          <!-- Rate tier labels -->
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px;">
-            <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;transition:all .2s;" onclick="setTasa(5)" class="tier-pill">
-              <div style="font-family:var(--font-d);font-weight:800;color:#f59e0b;font-size:.95rem;">5%</div>
-              <div style="font-size:.68rem;color:var(--text-muted);">Plan Básico</div>
-            </div>
-            <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;transition:all .2s;" onclick="setTasa(7.5)" class="tier-pill">
-              <div style="font-family:var(--font-d);font-weight:800;color:#f59e0b;font-size:.95rem;">7.5%</div>
-              <div style="font-size:.68rem;color:var(--text-muted);">Plan Plus</div>
-            </div>
-            <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;transition:all .2s;" onclick="setTasa(10)" class="tier-pill">
-              <div style="font-family:var(--font-d);font-weight:800;color:#f59e0b;font-size:.95rem;">10%</div>
-              <div style="font-size:.68rem;color:var(--text-muted);">Plan Premium</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Results -->
-      <div class="sim-results" id="inv-results">
-        <div class="inv-result-box">
-          <div class="result-label">💵 Capital invertido</div>
-          <div class="result-value" id="inv-r-capital">$0</div>
-          <div class="result-note">Lo que pones</div>
-        </div>
-        <div class="inv-result-box">
-          <div class="result-label">📈 Ganancia mensual</div>
-          <div class="result-value" id="inv-r-ganancia">$0</div>
-          <div class="result-note">Rendimiento del período</div>
-        </div>
-        <div class="inv-result-box inv-highlight" style="grid-column:span 2">
-          <div class="result-label">🏆 Total a recibir</div>
-          <div class="result-value" id="inv-r-total">$0</div>
-          <div class="result-note">Capital + rendimiento al finalizar el mes</div>
-        </div>
-      </div>
-
-      <!-- WA Button -->
-      <button class="btn-invest-wa" id="btn-inv-wa" onclick="abrirWhatsAppInversion()" disabled>
-        <div class="wa-pulse"></div>
-        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
-        <div class="wa-text-block">
-          <span class="wa-main-text">Quiero invertir por WhatsApp</span>
-          <span class="wa-sub-text">Habla con un asesor · Sin costo</span>
-        </div>
-      </button>
-    </div>
-  </div>
-</section>
-
 <!-- BENEFICIOS (SECCIÓN 3) -->
 <section class="benefits" id="beneficios">
   <div class="section-header reveal">
@@ -914,9 +738,9 @@
       <div class="footer-col">
         <h4>Empresa</h4>
         <ul class="footer-links">
-          <li><a href="#">Sobre nosotros</a></li>
-          <li><a href="#">Términos y condiciones</a></li>
-          <li><a href="#">Política de privacidad</a></li>
+          <li><a href="#" onclick="abrirLegal('sobre');return false;">Sobre nosotros</a></li>
+          <li><a href="#" onclick="abrirLegal('terminos');return false;">Términos y condiciones</a></li>
+          <li><a href="#" onclick="abrirLegal('privacidad');return false;">Política de privacidad</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1043,79 +867,11 @@
     });
   });
 
-  // ---- INVESTMENT SIMULATOR ----
-  let invTasa = 7.5;
-  let invResultadoActual = null;
-
-  const invMontoInput  = document.getElementById('inv-monto');
-  const invMontoSlider = document.getElementById('inv-monto-slider');
-  const invTasaSlider  = document.getElementById('inv-tasa-slider');
-
-  function actualizarTasaDisplay(v) {
-    invTasa = parseFloat(v);
-    document.getElementById('inv-tasa-val').textContent = invTasa + '%';
-    document.getElementById('inv-tasa-display').textContent = invTasa + '%';
-    // Update slider gradient fill
-    invTasaSlider.style.setProperty('--fill', ((invTasa - 5) / 5 * 100) + '%');
-    calcularInversion();
-  }
-
-  function setTasa(v) {
-    invTasaSlider.value = v;
-    actualizarTasaDisplay(v);
-  }
-
-  invMontoInput.addEventListener('input', () => {
-    const v = Math.min(Math.max(Number(invMontoInput.value), 100000), 10000000);
-    invMontoSlider.value = v;
-    calcularInversion();
-  });
-  invMontoSlider.addEventListener('input', () => {
-    invMontoInput.value = invMontoSlider.value;
-    // Update slider gradient fill
-    const pct = ((invMontoSlider.value - 100000) / (10000000 - 100000) * 100);
-    invMontoSlider.style.setProperty('--fill', pct + '%');
-    calcularInversion();
-  });
-  invTasaSlider.addEventListener('input', () => actualizarTasaDisplay(invTasaSlider.value));
-
-  function calcularInversion() {
-    const capital = parseFloat(invMontoInput.value) || 0;
-    if (capital < 100000) return;
-    const ganancia = capital * (invTasa / 100);
-    const total    = capital + ganancia;
-    invResultadoActual = { capital, ganancia, total, tasa: invTasa };
-    animarValor('inv-r-capital', capital);
-    animarValor('inv-r-ganancia', ganancia);
-    animarValor('inv-r-total', total);
-    document.getElementById('inv-results').classList.add('visible');
-    document.getElementById('btn-inv-wa').disabled = false;
-  }
-
-  function abrirWhatsAppInversion() {
-    if (!invResultadoActual) return;
-    const { capital, ganancia, total, tasa } = invResultadoActual;
-    const msg =
-      `Hola A&A! 👋 Me interesa invertir con ustedes:\n\n`+
-      `💰 *Capital a invertir:* ${fmt(capital)}\n`+
-      `📈 *Tasa de rendimiento:* ${tasa}% mensual\n`+
-      `🏆 *Ganancia mensual:* ${fmt(Math.round(ganancia))}\n`+
-      `✅ *Total a recibir:* ${fmt(Math.round(total))}\n\n`+
-      `¿Me pueden dar más información sobre cómo invertir? 🙏`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
-  }
-
-  // Init investment simulator
+  // Init
   window.addEventListener('DOMContentLoaded', () => {
-    // existing init...
     montoInput.value = 200000;
     montoSlider.value = 200000;
     calcular();
-    // investment init
-    invMontoInput.value = 500000;
-    invMontoSlider.value = 500000;
-    actualizarTasaDisplay(7.5);
-    calcularInversion();
   });
   // Card 3D mouse parallax
   const card = document.querySelector('.credit-card');
@@ -1133,6 +889,158 @@
       card.style.transform = '';
     });
   }
+</script>
+<!-- MODAL SOBRE NOSOTROS -->
+<div id="modalSobre" class="legal-modal" style="display:none;" onclick="if(event.target===this)cerrarLegal('sobre')">
+  <div class="legal-card">
+    <h2>🏢 Sobre Nosotros</h2>
+    <p class="legal-date">A&A — Soluciones Financieras</p>
+
+    <h3>¿Quiénes somos?</h3>
+    <p>A&A es una empresa colombiana dedicada a brindar soluciones financieras accesibles, rápidas y confiables. Nacimos con la misión de conectar a personas que necesitan liquidez con alternativas simples, sin burocracia y con total transparencia.</p>
+
+    <div class="legal-divider"></div>
+    <h3>Nuestra misión</h3>
+    <p>Democratizar el acceso al crédito en Colombia, ofreciendo préstamos personales ágiles con condiciones claras desde el primer momento. Creemos que el dinero no debe ser un obstáculo, sino una herramienta para alcanzar tus metas.</p>
+
+    <div class="legal-divider"></div>
+    <h3>¿Por qué A&A?</h3>
+    <ul>
+      <li>Más de <strong>500 clientes</strong> satisfechos en Colombia.</li>
+      <li>Proceso <strong>100% digital</strong> gestionado por WhatsApp.</li>
+      <li>Respuesta en <strong>minutos</strong> durante horario de atención.</li>
+      <li>Equipo humano disponible para guiarte en cada paso.</li>
+      <li>Cero costos ocultos — tasas claras desde el simulador.</li>
+    </ul>
+
+    <div class="legal-divider"></div>
+    <h3>Horario de atención</h3>
+    <p>Lunes a Viernes: <strong>8:00 AM – 5:00 PM</strong><br>Sábados: <strong>8:00 AM – 12:00 PM</strong></p>
+
+    <div class="legal-divider"></div>
+    <h3>Contacto</h3>
+    <p>Puedes comunicarte con nosotros directamente por WhatsApp en nuestro número oficial durante el horario de atención. Estamos listos para ayudarte.</p>
+
+    <div class="legal-close">
+      <button class="legal-close-btn" onclick="cerrarLegal('sobre')">Entendido ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL TÉRMINOS Y CONDICIONES -->
+<div id="modalTerminos" class="legal-modal" style="display:none;" onclick="if(event.target===this)cerrarLegal('terminos')">
+  <div class="legal-card">
+    <h2>📄 Términos y Condiciones</h2>
+    <p class="legal-date">Última actualización: enero de 2025</p>
+
+    <h3>1. Aceptación</h3>
+    <p>Al acceder y usar los servicios de A&A, aceptas quedar vinculado a estos Términos y Condiciones. Si no estás de acuerdo con alguna de estas condiciones, te pedimos no usar nuestros servicios.</p>
+
+    <div class="legal-divider"></div>
+    <h3>2. Descripción del servicio</h3>
+    <p>A&A ofrece un servicio de préstamos personales con plazos de 1 a 4 semanas. Las operaciones se formalizan mediante acuerdo directo entre las partes y la gestión se realiza a través de canales digitales incluyendo WhatsApp.</p>
+
+    <div class="legal-divider"></div>
+    <h3>3. Condiciones del préstamo</h3>
+    <ul>
+      <li>El monto mínimo de préstamo es de <strong>$50.000 COP</strong> y el máximo de <strong>$5.000.000 COP</strong>.</li>
+      <li>Las tasas de interés varían según el plazo: <strong>18%</strong> (1 semana), <strong>20%</strong> (2 semanas), <strong>23%</strong> (3 semanas), <strong>25%</strong> (1 mes).</li>
+      <li>El pago es único al vencimiento del plazo acordado.</li>
+      <li>Las tasas mostradas en el simulador son referenciales y pueden variar.</li>
+    </ul>
+
+    <div class="legal-divider"></div>
+    <h3>4. Obligaciones del cliente</h3>
+    <ul>
+      <li>Proporcionar información veraz y actualizada al momento de solicitar el préstamo.</li>
+      <li>Cumplir con el pago en la fecha acordada.</li>
+      <li>Notificar de inmediato cualquier inconveniente para llegar a un acuerdo.</li>
+    </ul>
+
+    <div class="legal-divider"></div>
+    <h3>5. Limitación de responsabilidad</h3>
+    <p>A&A no se hace responsable por el uso que el cliente dé a los recursos prestados. Las condiciones del préstamo están sujetas a aprobación previa.</p>
+
+    <div class="legal-divider"></div>
+    <h3>6. Modificaciones</h3>
+    <p>Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios serán notificados a través de nuestros canales oficiales y entrarán en vigor a los 5 días hábiles de su publicación.</p>
+
+    <div class="legal-divider"></div>
+    <h3>7. Contacto</h3>
+    <p>Para consultas sobre estos términos, comunícate por WhatsApp al número oficial de A&A en horario de atención.</p>
+
+    <div class="legal-close">
+      <button class="legal-close-btn" onclick="cerrarLegal('terminos')">Entendido ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL POLÍTICA DE PRIVACIDAD -->
+<div id="modalPrivacidad" class="legal-modal" style="display:none;" onclick="if(event.target===this)cerrarLegal('privacidad')">
+  <div class="legal-card">
+    <h2>🔒 Política de Privacidad</h2>
+    <p class="legal-date">Última actualización: enero de 2025</p>
+
+    <h3>1. Datos que recopilamos</h3>
+    <p>Al usar nuestros servicios, recopilamos:</p>
+    <ul>
+      <li><strong>Datos de contacto:</strong> nombre, número de teléfono y documento de identidad.</li>
+      <li><strong>Datos del préstamo:</strong> montos, plazos y fechas de operaciones.</li>
+      <li><strong>Datos de uso:</strong> interacciones con nuestro simulador y canal de WhatsApp.</li>
+    </ul>
+
+    <div class="legal-divider"></div>
+    <h3>2. Uso de la información</h3>
+    <p>Usamos tus datos exclusivamente para:</p>
+    <ul>
+      <li>Gestionar tu solicitud y operaciones de préstamo.</li>
+      <li>Enviarte notificaciones sobre fechas de pago y estado de tu crédito.</li>
+      <li>Mejorar nuestros servicios y experiencia de usuario.</li>
+      <li>Cumplir con obligaciones legales y regulatorias.</li>
+    </ul>
+
+    <div class="legal-divider"></div>
+    <h3>3. Almacenamiento y seguridad</h3>
+    <p>Tu información es manejada de forma confidencial. Nunca vendemos ni cedemos tus datos a terceros sin tu consentimiento expreso. Las comunicaciones se realizan a través de canales seguros.</p>
+
+    <div class="legal-divider"></div>
+    <h3>4. Cookies</h3>
+    <p>Nuestro sitio puede usar cookies de sesión para mejorar la experiencia de navegación. No usamos cookies de seguimiento ni publicidad de terceros.</p>
+
+    <div class="legal-divider"></div>
+    <h3>5. Tus derechos</h3>
+    <p>Tienes derecho a:</p>
+    <ul>
+      <li>Acceder, corregir o eliminar tus datos personales.</li>
+      <li>Solicitar que dejemos de procesar tu información.</li>
+      <li>Retirar tu consentimiento en cualquier momento.</li>
+    </ul>
+    <p style="margin-top:10px;">Para ejercer estos derechos, contáctanos por WhatsApp en horario de atención.</p>
+
+    <div class="legal-divider"></div>
+    <h3>6. Menores de edad</h3>
+    <p>Nuestros servicios están dirigidos exclusivamente a personas mayores de 18 años. No recopilamos intencionalmente datos de menores.</p>
+
+    <div class="legal-close">
+      <button class="legal-close-btn" onclick="cerrarLegal('privacidad')">Entendido ✓</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function abrirLegal(tipo) {
+    const ids = { sobre:'modalSobre', terminos:'modalTerminos', privacidad:'modalPrivacidad' };
+    const el = document.getElementById(ids[tipo]);
+    if (el) { el.style.display='flex'; document.body.style.overflow='hidden'; el.scrollTop=0; }
+  }
+  function cerrarLegal(tipo) {
+    const ids = { sobre:'modalSobre', terminos:'modalTerminos', privacidad:'modalPrivacidad' };
+    const el = document.getElementById(ids[tipo]);
+    if (el) { el.style.display='none'; document.body.style.overflow=''; }
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') ['sobre','terminos','privacidad'].forEach(cerrarLegal);
+  });
 </script>
 </body>
 </html>
